@@ -1,0 +1,42 @@
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast Finder Search Bar</title>
+    <link rel="stylesheet" href="full.css">
+</head>
+<body>
+    <div class="search-container">
+        <input type="text" id="search-bar" placeholder="Search for a country or capital" oninput="filterSuggestions()" autocomplete="off">
+        <div id="suggestions-box" class="suggestions-box"></div>
+    </div>
+
+    <script>
+        const countries = [
+            { name: 'United States', capital: 'Washington, D.C.' },
+            { name: 'Canada', capital: 'Ottawa' },
+            { name: 'France', capital: 'Paris' },
+            { name: 'Germany', capital: 'Berlin' },
+            { name: 'Australia', capital: 'Canberra' },
+            // Add more country data here
+        ];
+
+        function filterSuggestions() {
+            const query = document.getElementById('search-bar').value.toLowerCase();
+            const suggestionsBox = document.getElementById('suggestions-box');
+            const filteredCountries = countries.filter(country =>
+                country.name.toLowerCase().includes(query) || country.capital.toLowerCase().includes(query)
+            );
+            
+            if (query === '') {
+                suggestionsBox.innerHTML = '';
+            } else {
+                suggestionsBox.innerHTML = filteredCountries.map(country => 
+                    <div class="suggestion-item">${country.name} - ${country.capital}</div>
+                ).join('');
+            }
+        }
+    </script>
+</body>
+</html>
